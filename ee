@@ -172,7 +172,7 @@ app01.html
         params.append(key, value);
       }
 
-      const response = await fetch("https://script.google.com/macros/s/AKfycbxNY5cPOJ06RwxViyl-TQmIsL2VODvWYkx43F3jbHWwd0lfvP5JXhuK5GAomBznSlT1yw/exec", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbys8KW3wWFX1aVKbZ1LwSvyRkSk31k6iQ1z5o0kD-KW29SrzrtiDWFbM3qBpd1WfF7QoA/exec", {
         method: "POST",
         body: params,
       });
