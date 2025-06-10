@@ -49,12 +49,15 @@ function generateBill() {
   document.getElementById("customerName").textContent = customerName;
   document.getElementById("totalPrice").textContent = `${total} บาท`;
 
- // สร้าง QR จาก promptpay.io
+// สร้าง QR จาก promptpay.io
+const qrcodeDiv = document.getElementById("qrcode");  // ✅ << เพิ่มบรรทัดนี้
+qrcodeDiv.innerHTML = ""; // เคลียร์ของเก่า
 const img = document.createElement("img");
-img.src = `https://promptpay.io/${promptPayNumber}/${total}.png`; // ✅ ← สร้าง QR
+img.src = `https://promptpay.io/${promptPayNumber}/${total}.png`;
 img.alt = "QR สำหรับพร้อมเพย์";
 img.width = 200;
 qrcodeDiv.appendChild(img);
+
 
   // แสดงใบสรุป
   document.getElementById("billArea").style.display = "block";
