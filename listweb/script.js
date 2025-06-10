@@ -1,5 +1,5 @@
 let itemIndex = 0;  // ใช้นับจำนวนแถวรายการที่ผู้ใช้เพิ่ม
-const promptPayNumber = "0888888888";  // 👉 เปลี่ยนเป็นเบอร์พร้อมเพย์ของคุณ
+const promptPayNumber = "0936505412";  // 👉 เปลี่ยนเป็นเบอร์พร้อมเพย์ของคุณ
 
 // 🔧 ฟังก์ชันเพิ่มรายการใหม่ให้กรอก
 function addItem() {
@@ -53,7 +53,7 @@ function generateBill() {
   const qrcodeDiv = document.getElementById("qrcode");
   qrcodeDiv.innerHTML = "";
   const img = document.createElement("img");
-  img.src = `https://promptpay.io/${promptPayNumber}/${total}.png`;
+  img.src = `ttps://promptpay.io/0936505412.png`;
   img.alt = "QR สำหรับพร้อมเพย์";
   img.width = 200;
   qrcodeDiv.appendChild(img);
