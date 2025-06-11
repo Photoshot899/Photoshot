@@ -11,6 +11,7 @@ function addItem() {
     <input type="text" placeholder="ชื่อรายการ" id="name-${itemIndex}" />
     <input type="number" placeholder="จำนวน" id="qty-${itemIndex}" />
     <input type="number" placeholder="ราคาต่อหน่วย" id="price-${itemIndex}" />
+    <button onclick="removeItem(this)">❌ ลบ</button>
     <hr />
   `;
   container.appendChild(div);
@@ -105,3 +106,49 @@ function recalculateTotals() {
   document.getElementById("totalPrice").textContent = `${newTotal} บาท`;
   document.getElementById("qrcode").innerHTML = `<img src="https://promptpay.io/${promptPayNumber}/${newTotal}.png" width="200" alt="QR พร้อมเพย์">`;
 }
+
+function removeItem(button) {
+  const itemDiv = button.parentElement; // div ที่ครอบชุด input
+  itemDiv.remove(); // ลบออกจาก DOM
+}
+
+function generateBill() {
+  const customerName = document.getElementById("customerNameInput").value;
+  const itemListEl = document.getElementById("itemList");
+  itemListEl.innerHTML = "";
+  let total = 0;
+
+  const itemRows = document.querySelectorAll(".item-row"); // ✅ ใช้รายการที่ยังอยู่
+
+  itemRows.forEach(row => {
+    const idx = row.getAttribute("data-index");
+    const name = document.getElementById(`name-${idx}`)?.value;
+    const qty = parseFloat(document.getElementById(`qty-${idx}`)?.value) || 0;
+    const price = parseFloat(document.getElementById(`price-${idx}`)?.value) || 0;
+
+    if (!name || qty <= 0 || price <= 0) return;
+
+    const itemTotal = qty * price;
+    total += itemTotal;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${name}</td>
+      <td><input type="number" value="${qty}" data-idx="${idx}" class="qty-input" /></td>
+      <td><input type="number" value="${price}" data-idx="${idx}" class="price-input" /></td>
+      <td class="item-total" id="total-${idx}">${itemTotal}</td>
+    `;
+    itemListEl.appendChild(tr);
+  });
+
+  // แสดงยอดรวมและ QR
+  document.getElementById("customerName").textContent = customerName;
+  document.getElementById("totalPrice").textContent = `${total} บาท`;
+
+  const qrcodeDiv = document.getElementById("qrcode");
+  qrcodeDiv.innerHTML = `<img src="https://promptpay.io/${promptPayNumber}/${total}.png" width="200" alt="QR พร้อมเพย์">`;
+
+  document.getElementById("billArea").style.display = "block";
+  addLiveRecalculate(); // ให้คำนวณใหม่ได้เวลาเปลี่ยน input
+}
+
