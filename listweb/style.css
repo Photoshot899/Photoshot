@@ -14,6 +14,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  color: aquamarine;
+  border-color: blue;
 }
 
 th, td {
@@ -32,9 +34,3 @@ th, td {
   margin-top: 20px;
 }
 
-table{
-  color: aquamarine;
-  border-color: blue;
-
-
-}
