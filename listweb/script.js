@@ -9,8 +9,8 @@ function addItem() {
   const div = document.createElement("div");
   div.innerHTML = `
     <input type="text" placeholder="ชื่อรายการ" id="name-${itemIndex}" />
-    <input type="number" placeholder="จำนวน" id="qty-${itemIndex}" />
-    <input type="number" placeholder="ราคาต่อหน่วย" id="price-${itemIndex}" />
+    <input type="number" placeholder="จำนวน" id="qty-${itemIndex}" value="1" />
+    <input type="number" placeholder="ราคาต่อหน่วย" id="price-${itemIndex}" value="0" />
     <hr />
   `;
   container.appendChild(div);
