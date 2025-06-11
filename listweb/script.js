@@ -10,7 +10,7 @@ function addItem() {
   div.innerHTML = `
     <input type="text" placeholder="ชื่อรายการ" id="name-${itemIndex}" />
     <input type="number" placeholder="จำนวน" id="qty-${itemIndex}" />
-    <input type="number" placeholder="ราคาต่อหน่วย" id="price-${itemIndex} />
+    <input type="number" placeholder="ราคาต่อหน่วย" id="price-${itemIndex}" />
     <hr />
   `;
   container.appendChild(div);
