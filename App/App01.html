@@ -28,15 +28,13 @@
           <input type="date" id="date" name="date" required>
         </div>
         <div class="column">
-          <label for="timestart">เวลา</label>
-          <input type="time" id="time" name="time" required>
-        </div>
-        <div class="column">
-          <label for="timestop">เวลา</label>
+          <label for="time">เวลา</label>
           <input type="time" id="time" name="time" required>
         </div>
       </div>
-      </div>
+
+      <!-- รายละเอียดเพิ่มเติม -->
+      <textarea name="details" placeholder="รายละเอียดเพิ่มเติม เช่น รีทัชสิว, ย้อมผมสีจม ฯลฯ" rows="3"></textarea>
 
       <!-- ปุ่มส่ง -->
       <button type="submit">ส่ง</button>
@@ -69,7 +67,7 @@
       messageBox.innerText = "";
 
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxUHf5geZMK6X9UplHhEGIJMQy2yWY8fCwzRw6_88KordX8U5hEmRVzUhQYGo-tv8Oz3w/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbys8KW3wWFX1aVKbZ1LwSvyRkSk31k6iQ1z5o0kD-KW29SrzrtiDWFbM3qBpd1WfF7QoA/exec", {
           method: "POST",
           body: params,
         });
