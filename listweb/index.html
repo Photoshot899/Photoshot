@@ -1,58 +1,31 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบสร้างบิลพร้อม QR</title>
-  <!-- เชื่อมไฟล์ CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>ระบบคิดเงินถ่ายรูป (Custom รายบุคคล)</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h2>ระบบคิดเงินถ่ายรูป</h2>
 
-  <h2>สร้างใบสรุปพร้อม QR Code</h2>
-
-  <!-- ช่องกรอกชื่อลูกค้า -->
   <label>ชื่อลูกค้า:
-    <input type="text" id="customerNameInput" placeholder="ระบุชื่อ..." />
+    <input type="text" id="customerName" placeholder="ระบุชื่อ...">
   </label>
 
-  <!-- โซนเพิ่มรายการต่าง ๆ -->
-  <div id="items"></div>
+  <label>จำนวนคน:
+    <input type="number" id="peopleCount" value="1" min="1">
+  </label>
 
-  <!-- ปุ่มเพิ่มรายการ และปุ่มสร้างบิล -->
-  <button onclick="addItem()">➕ เพิ่มรายการ</button>
-  <button onclick="generateBill()">🧾 สร้างใบสรุป</button>
+  <h3>รายการ <b>Custom</b> รายบุคคล:</h3>
+  <div id="customList"></div>
 
-  <hr />
+  <button onclick="addCustom()">➕ เพิ่มรายการ Custom</button>
+  <button onclick="calculate()">คำนวณราคา</button>
+  <button onclick="downloadImage()">บันทึกเป็นภาพ</button>
 
-  <!-- โซนแสดงใบสรุปหลังจากกดสร้าง -->
-  <div id="billArea" style="display:none;">
-    <h3>ใบสรุปรายการ</h3>
-    <p><b>ชื่อลูกค้า:</b> <span id="customerName"></span></p>
+  <div class="result" id="result"></div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>รายการ</th>
-          <th>จำนวน</th>
-          <th>ราคาต่อหน่วย</th>
-          <th>รวม</th>
-        </tr>
-      </thead>
-      <tbody id="itemList"></tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3" class="total">ราคารวมทั้งหมด:</td>
-          <td id="totalPrice">-</td>
-        </tr>
-      </tfoot>
-    </table>
-
-    <!-- แสดง QR PromptPay -->
-    <div id="qrcode"></div>
-  </div>
-
-  <!-- เชื่อม script.js -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
