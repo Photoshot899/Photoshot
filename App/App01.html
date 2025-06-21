@@ -20,21 +20,23 @@
     <form id="bookingForm">
       <input type="text" name="fullname" placeholder="ชื่อ - นามสกุล" required>
       <input type="tel" name="phone" placeholder="เบอร์โทร ติดต่อ" required>
+      <input type="number" name="people" placeholder="จำนวนคน" min="1" required>
 
-      <!-- วันที่และเวลา (มี label) -->
+      <!-- วันที่ เวลาเข้า เวลาออก -->
       <div class="row">
         <div class="column">
           <label for="date">วันที่</label>
           <input type="date" id="date" name="date" required>
         </div>
         <div class="column">
-          <label for="time">เวลา</label>
-          <input type="time" id="time" name="time" required>
+          <label for="timeStart">เวลาเข้า</label>
+          <input type="time" id="timeStart" name="timeStart" required>
+        </div>
+        <div class="column">
+          <label for="timeEnd">เวลาออก</label>
+          <input type="time" id="timeEnd" name="timeEnd" required>
         </div>
       </div>
-
-      <!-- รายละเอียดเพิ่มเติม -->
-      <textarea name="details" placeholder="รายละเอียดเพิ่มเติม เช่น รีทัชสิว, ย้อมผมสีจม ฯลฯ" rows="3"></textarea>
 
       <!-- ปุ่มส่ง -->
       <button type="submit">ส่ง</button>
@@ -42,10 +44,13 @@
 
     <!-- ข้อความแจ้งเตือน -->
     <div id="message" class="message"></div>
-    <div id="spinner" class="spinner" style="display: none;"></div>
   </div>
 
   <script>
+    // จำกัดวันที่ให้อยู่ในอนาคตเท่านั้น
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("date").setAttribute("min", today);
+
     document.getElementById('bookingForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
@@ -60,7 +65,6 @@
         params.append(key, value);
       }
 
-      // 🔄 เริ่มโหลด
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
       submitBtn.innerText = "กำลังส่ง...";
@@ -87,9 +91,8 @@
         messageBox.style.color = "red";
       }
 
-      // ✅ หยุดโหลด
       submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
+      setTimeout(() => submitBtn.disabled = false, 1500);
       submitBtn.innerText = originalText;
     });
   </script>
