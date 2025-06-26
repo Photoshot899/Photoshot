@@ -10,7 +10,21 @@ function addCustom() {
     </label>
     <div class="custom-options">
       <label><input type="checkbox" class="hairColor"> เปลี่ยนสีผม (+100฿)</label><br>
-      <label><input type="checkbox" class="hairStyle"> เปลี่ยนทรงผม (+100฿)</label>
+      <label>เลือกทรงผม:
+        <select class="hairStyleSelect">
+          <option value="">- ไม่เลือก -</option>
+          <option value="HS01">HS01</option>
+          <option value="HS02">HS02</option>
+          <option value="HS03">HS03</option>
+          <option value="HS04">HS04</option>
+          <option value="HS05">HS05</option>
+          <option value="HS06">HS06</option>
+          <option value="HS07">HS07</option>
+          <option value="HS08">HS08</option>
+          <option value="HS09">HS09</option>
+          <option value="HS10">HS10</option>
+        </select> (+100฿)
+      </label>
     </div>
   `;
   document.getElementById('customList').appendChild(div);
@@ -28,13 +42,14 @@ function calculate() {
   blocks.forEach((block, i) => {
     const cname = block.querySelector("input[name='customName']").value || `คนที่ ${i + 1}`;
     const hairColor = block.querySelector(".hairColor").checked ? 100 : 0;
-    const hairStyle = block.querySelector(".hairStyle").checked ? 100 : 0;
+    const hairStyleCode = block.querySelector(".hairStyleSelect").value;
+    const hairStyle = hairStyleCode ? 100 : 0;
     const subtotal = hairColor + hairStyle;
     customTotal += subtotal;
 
     const desc = [];
     if (hairColor) desc.push("เปลี่ยนสีผม");
-    if (hairStyle) desc.push("เปลี่ยนทรงผม");
+    if (hairStyle) desc.push(`ทรงผมรหัส ${hairStyleCode}`);
 
     customDetails += `${cname}: ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
   });
