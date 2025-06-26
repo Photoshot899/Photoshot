@@ -1,52 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap');
+
 body {
   font-family: 'Sarabun', sans-serif;
-  background: #f9f9f9;
-  max-width: 600px;
+  background: linear-gradient(to bottom right, #f2f2f2, #e0f7fa);
+  max-width: 640px;
   margin: auto;
-  padding: 20px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px rgba(0,0,0,0.05);
 }
 
-h2, h3 {
-  color: #111;
+h2 {
+  color: #00695c;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+h3 {
+  margin-top: 24px;
+  color: #004d40;
 }
 
 label {
-  font-weight: bold;
+  font-weight: 600;
+  display: block;
+  margin-top: 10px;
 }
 
 input[type="text"],
 input[type="number"] {
   width: 100%;
-  padding: 8px;
-  margin: 6px 0 12px 0;
+  padding: 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box;
 }
 
 .custom-person {
-  background: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  background: #ffffff;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-left: 4px solid #26a69a;
+  border-radius: 10px;
+  margin-bottom: 12px;
 }
 
 .custom-options {
-  margin-top: 10px;
+  margin-top: 8px;
+  padding-left: 8px;
 }
 
 button {
   width: 100%;
-  padding: 12px;
-  margin: 6px 0;
+  padding: 14px;
+  margin-top: 8px;
   font-size: 16px;
-  background-color: #4CAF50;
+  font-weight: 600;
+  background-color: #00796b;
   color: white;
   border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background-color: #004d40;
 }
 
 .result {
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 20px;
+  background: #ffffff;
+  border: 1px dashed #999;
+  padding: 16px;
+  margin-top: 24px;
   font-size: 16px;
+  line-height: 1.6;
+  border-radius: 10px;
+  color: #333;
 }
