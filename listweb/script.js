@@ -9,7 +9,12 @@ function addCustom() {
       <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
     </label>
     <div class="custom-options">
-      <label><input type="checkbox" class="hairColor"> เปลี่ยนสีผม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับผิวเนียน"> ปรับผิวเนียน (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
@@ -41,16 +46,25 @@ function calculate() {
 
   blocks.forEach((block, i) => {
     const cname = block.querySelector("input[name='customName']").value || `คนที่ ${i + 1}`;
-    const hairColor = block.querySelector(".hairColor").checked ? 100 : 0;
+    const options = block.querySelectorAll(".customOption");
     const hairStyleCode = block.querySelector(".hairStyleSelect").value;
-    const hairStyle = hairStyleCode ? 100 : 0;
-    const subtotal = hairColor + hairStyle;
-    customTotal += subtotal;
 
+    let subtotal = 0;
     const desc = [];
-    if (hairColor) desc.push("เปลี่ยนสีผม");
-    if (hairStyle) desc.push(`ทรงผมรหัส ${hairStyleCode}`);
 
+    options.forEach(opt => {
+      if (opt.checked) {
+        subtotal += 100;
+        desc.push(opt.dataset.label);
+      }
+    });
+
+    if (hairStyleCode) {
+      subtotal += 100;
+      desc.push(`ทรงผมรหัส ${hairStyleCode}`);
+    }
+
+    customTotal += subtotal;
     customDetails += `${cname}: ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
   });
 
