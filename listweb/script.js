@@ -71,7 +71,7 @@ function calculate() {
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
 
-  const promptPayNumber = "0812345678"; // เปลี่ยนเป็นเบอร์ของคุณ
+  const promptPayNumber = "0812345678"; // ✅ เปลี่ยนเป็นเบอร์ PromptPay จริงของคุณ
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
 
   document.getElementById("result").innerHTML = `
