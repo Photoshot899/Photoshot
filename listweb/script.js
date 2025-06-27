@@ -1,3 +1,40 @@
+let customIndex = 0;
+
+function addCustom() {
+  customIndex++;
+  const div = document.createElement('div');
+  div.className = 'custom-person';
+  div.innerHTML = `
+    <label>ชื่อคนที่ Custom:
+      <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
+    </label>
+    <div class="custom-options">
+      <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับผิวเนียน"> ปรับผิวเนียน (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
+      <label>เลือกทรงผม:
+        <select class="hairStyleSelect">
+          <option value="">- ไม่เลือก -</option>
+          <option value="HS01">HS01</option>
+          <option value="HS02">HS02</option>
+          <option value="HS03">HS03</option>
+          <option value="HS04">HS04</option>
+          <option value="HS05">HS05</option>
+          <option value="HS06">HS06</option>
+          <option value="HS07">HS07</option>
+          <option value="HS08">HS08</option>
+          <option value="HS09">HS09</option>
+          <option value="HS10">HS10</option>
+        </select> (+100฿)
+      </label>
+    </div>
+  `;
+  document.getElementById('customList').appendChild(div);
+}
+
 function calculate() {
   const name = document.getElementById("customerName").value || "ไม่ระบุ";
   const people = parseInt(document.getElementById("peopleCount").value) || 1;
@@ -34,7 +71,7 @@ function calculate() {
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
 
-  const promptPayNumber = "0812345678"; // ← เปลี่ยนเป็นเบอร์ของคุณ
+  const promptPayNumber = "0812345678"; // เปลี่ยนเป็นเบอร์ของคุณ
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
 
   document.getElementById("result").innerHTML = `
@@ -51,4 +88,13 @@ function calculate() {
       <img src="${qrUrl}" alt="QR PromptPay" style="margin-top:8px; width:200px; height:auto;">
     </div>
   `;
+}
+
+function downloadImage() {
+  html2canvas(document.querySelector("#result")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "ใบสรุปยอด.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
 }
