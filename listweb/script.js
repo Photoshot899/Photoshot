@@ -18,6 +18,11 @@ function addCustom() {
     <label>ชื่อคนที่ Custom:
       <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
     </label>
+
+    <label>รหัสไฟล์ภาพ:
+      <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
+    </label>
+
     <div class="custom-options">
       <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
@@ -25,6 +30,7 @@ function addCustom() {
       <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
+
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
@@ -58,6 +64,7 @@ function calculate() {
 
   blocks.forEach((block, i) => {
     const cname = block.querySelector("input[name='customName']").value || `คนที่ ${i + 1}`;
+    const imageCode = block.querySelector("input[name='imageCode']").value || "-";
     const options = block.querySelectorAll(".customOption");
     const hairStyleCode = block.querySelector(".hairStyleSelect").value;
 
@@ -77,7 +84,7 @@ function calculate() {
     }
 
     customTotal += subtotal;
-    customDetails += `${cname}: ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
+    customDetails += `${cname} (ไฟล์: ${imageCode}): ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
   });
 
   const baseTotal = basePrice * people;
