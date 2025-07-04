@@ -9,7 +9,7 @@
 <body>
   <h2>ระบบคิดเงินถ่ายรูป</h2>
 
-  <!-- 🔹 หน้าแรก -->
+  <!-- 🔹 หน้า 1 -->
   <div id="page1">
     <label>ชื่อผู้จอง:
       <input type="text" id="customerName" placeholder="ระบุชื่อ...">
@@ -39,13 +39,18 @@
 
     <button onclick="addCustom()">➕ เพิ่มรายการ Custom</button>
     <button onclick="goToPage1()">⬅️ ย้อนกลับ</button>
+    <button onclick="goToPage3()">➡️ ถัดไป</button>
+  </div>
+
+  <!-- ✅ หน้า 3 -->
+  <div id="page3" style="display:none;">
+    <h3>สรุปราคาและสลิปชำระเงิน</h3>
+    <div class="result" id="result"></div>
 
     <div class="button-row">
-      <button onclick="calculate()">📌 คำนวณราคา</button>
-      <button onclick="downloadImage()">💾 บันทึกเป็นภาพ</button>
+      <button onclick="goToPage2()">⬅️ ย้อนกลับ</button>
+      <button onclick="downloadImage()">💾 บันทึกภาพ</button>
     </div>
-
-    <div class="result" id="result"></div>
   </div>
 
   <script src="script.js"></script>

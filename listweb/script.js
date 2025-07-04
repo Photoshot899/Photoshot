@@ -1,13 +1,20 @@
 let customIndex = 0;
 
+function goToPage1() {
+  showPage("page1");
+}
 function goToPage2() {
-  document.getElementById("page1").style.display = "none";
-  document.getElementById("page2").style.display = "block";
+  showPage("page2");
+}
+function goToPage3() {
+  calculate();
+  showPage("page3");
 }
 
-function goToPage1() {
-  document.getElementById("page2").style.display = "none";
-  document.getElementById("page1").style.display = "block";
+function showPage(id) {
+  ["page1", "page2", "page3"].forEach(p => {
+    document.getElementById(p).style.display = (p === id) ? "block" : "none";
+  });
 }
 
 function addCustom() {
