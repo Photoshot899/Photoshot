@@ -54,8 +54,15 @@ function addCustom() {
         </select> (+100฿)
       </label>
     </div>
+
+    <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
   `;
   document.getElementById('customList').appendChild(div);
+}
+
+function removeCustom(button) {
+  const block = button.closest(".custom-person");
+  if (block) block.remove();
 }
 
 function calculate() {
