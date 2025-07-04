@@ -1,20 +1,22 @@
 let customIndex = 0;
 
 function goToPage1() {
-  showPage("page1");
-}
-function goToPage2() {
-  showPage("page2");
-}
-function goToPage3() {
-  calculate();
-  showPage("page3");
+  document.getElementById('page1').style.display = 'block';
+  document.getElementById('page2').style.display = 'none';
+  document.getElementById('page3').style.display = 'none';
 }
 
-function showPage(id) {
-  ["page1", "page2", "page3"].forEach(p => {
-    document.getElementById(p).style.display = (p === id) ? "block" : "none";
-  });
+function goToPage2() {
+  document.getElementById('page1').style.display = 'none';
+  document.getElementById('page2').style.display = 'block';
+  document.getElementById('page3').style.display = 'none';
+}
+
+function goToPage3() {
+  calculate();
+  document.getElementById('page1').style.display = 'none';
+  document.getElementById('page2').style.display = 'none';
+  document.getElementById('page3').style.display = 'block';
 }
 
 function addCustom() {
@@ -25,11 +27,9 @@ function addCustom() {
     <label>ชื่อคนที่ Custom:
       <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
     </label>
-
     <label>รหัสไฟล์ภาพ:
-      <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
+      <input type="text" name="fileCode" placeholder="เช่น IMG-00123">
     </label>
-
     <div class="custom-options">
       <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
@@ -37,7 +37,6 @@ function addCustom() {
       <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
-
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
@@ -54,20 +53,14 @@ function addCustom() {
         </select> (+100฿)
       </label>
     </div>
-
-    <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
+    <button onclick="this.parentElement.remove()" style="margin-top: 10px; background: #d32f2f;">ลบรายการนี้</button>
   `;
   document.getElementById('customList').appendChild(div);
 }
 
-function removeCustom(button) {
-  const block = button.closest(".custom-person");
-  if (block) block.remove();
-}
-
 function calculate() {
   const name = document.getElementById("customerName").value || "ไม่ระบุ";
-  const people = Math.max(1, parseInt(document.getElementById("peopleCount").value) || 1);
+  const people = parseInt(document.getElementById("peopleCount").value) || 1;
   const pickupDate = document.getElementById("pickupDate")?.value || "ไม่ระบุ";
   const contactInfo = document.getElementById("contactInfo")?.value || "ไม่ระบุ";
   const basePrice = 350;
@@ -78,7 +71,7 @@ function calculate() {
 
   blocks.forEach((block, i) => {
     const cname = block.querySelector("input[name='customName']").value || `คนที่ ${i + 1}`;
-    const imageCode = block.querySelector("input[name='imageCode']").value || "-";
+    const fileCode = block.querySelector("input[name='fileCode']").value || "-";
     const options = block.querySelectorAll(".customOption");
     const hairStyleCode = block.querySelector(".hairStyleSelect").value;
 
@@ -98,7 +91,7 @@ function calculate() {
     }
 
     customTotal += subtotal;
-    customDetails += `${cname} (ไฟล์: ${imageCode}): ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
+    customDetails += `${cname} (ไฟล์: ${fileCode}): ${desc.join(" / ")} (+${subtotal}฿)<br>`;
   });
 
   const baseTotal = basePrice * people;
@@ -111,22 +104,39 @@ function calculate() {
     <b>จำนวนคน:</b> ${people}<br>
     <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
     <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
-
     <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
     <b><u>Custom รายบุคคล:</u></b><br>
     ${customDetails || "- ไม่มี -"}<br>
     <hr>
     <b>รวมทั้งหมด: ${total} บาท</b>
-
-    <div style="margin-top:20px; text-align:center;">
-      <b>สแกนจ่ายผ่าน PromptPay</b><br>
-      <img src="${qrUrl}" alt="QR PromptPay" style="margin-top:8px; width:200px; height:auto;">
-    </div>
   `;
+
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.src = qrUrl;
+  img.alt = "QR PromptPay";
+  img.style.marginTop = "8px";
+  img.style.width = "200px";
+  img.style.height = "auto";
+
+  const qrContainer = document.getElementById("qrContainer");
+  qrContainer.innerHTML = `<b>สแกนจ่ายผ่าน PromptPay</b><br>`;
+  qrContainer.appendChild(img);
 }
 
 function downloadImage() {
-  html2canvas(document.querySelector("#result")).then(canvas => {
+  const qrImg = document.querySelector("#qrContainer img");
+  if (qrImg && !qrImg.complete) {
+    qrImg.onload = () => {
+      captureResult();
+    };
+  } else {
+    captureResult();
+  }
+}
+
+function captureResult() {
+  html2canvas(document.querySelector("#result").parentElement).then(canvas => {
     const link = document.createElement("a");
     link.download = "ใบสรุปยอด.png";
     link.href = canvas.toDataURL();
