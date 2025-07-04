@@ -1,5 +1,15 @@
 let customIndex = 0;
 
+function goToPage2() {
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+}
+
+function goToPage1() {
+  document.getElementById("page2").style.display = "none";
+  document.getElementById("page1").style.display = "block";
+}
+
 function addCustom() {
   customIndex++;
   const div = document.createElement('div');
@@ -37,7 +47,7 @@ function addCustom() {
 
 function calculate() {
   const name = document.getElementById("customerName").value || "ไม่ระบุ";
-  const people = parseInt(document.getElementById("peopleCount").value) || 1;
+  const people = Math.max(1, parseInt(document.getElementById("peopleCount").value) || 1);
   const pickupDate = document.getElementById("pickupDate")?.value || "ไม่ระบุ";
   const contactInfo = document.getElementById("contactInfo")?.value || "ไม่ระบุ";
   const basePrice = 350;
@@ -72,7 +82,7 @@ function calculate() {
 
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
-  const promptPayNumber = "0812345678"; // ✅ เปลี่ยนเป็นเบอร์ PromptPay จริงของคุณ
+  const promptPayNumber = "0812345678";
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
 
   document.getElementById("result").innerHTML = `
