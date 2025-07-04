@@ -8,13 +8,22 @@
 <body>
   <h2>ระบบคิดเงินถ่ายรูป</h2>
 
-  <label>ชื่อลูกค้า:
+  <label>ชื่อผู้จอง:
     <input type="text" id="customerName" placeholder="ระบุชื่อ...">
   </label>
 
   <label>จำนวนคน:
     <input type="number" id="peopleCount" value="1" min="1">
   </label>
+
+  <label>วันที่ต้องการรับรูป:
+    <input type="date" id="pickupDate">
+  </label>
+
+  <label>ช่องทางติดต่อ (เบอร์โทร / Line / Email):
+    <input type="text" id="contactInfo" placeholder="เช่น 089xxxxxxx หรือ Line ID">
+  </label>
+
 
   <h3>รายการ <b>Custom</b> รายบุคคล:</h3>
   <div id="customList"></div>

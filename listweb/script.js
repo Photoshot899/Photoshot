@@ -38,6 +38,8 @@ function addCustom() {
 function calculate() {
   const name = document.getElementById("customerName").value || "ไม่ระบุ";
   const people = parseInt(document.getElementById("peopleCount").value) || 1;
+  const pickupDate = document.getElementById("pickupDate")?.value || "ไม่ระบุ";
+  const contactInfo = document.getElementById("contactInfo")?.value || "ไม่ระบุ";
   const basePrice = 350;
 
   let customTotal = 0;
@@ -70,13 +72,15 @@ function calculate() {
 
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
-
   const promptPayNumber = "0812345678"; // ✅ เปลี่ยนเป็นเบอร์ PromptPay จริงของคุณ
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
 
   document.getElementById("result").innerHTML = `
     <b>ชื่อลูกค้า:</b> ${name}<br>
     <b>จำนวนคน:</b> ${people}<br>
+    <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
+    <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
+
     <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
     <b><u>Custom รายบุคคล:</u></b><br>
     ${customDetails || "- ไม่มี -"}<br>
