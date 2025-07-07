@@ -104,25 +104,35 @@ function calculate() {
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
   const promptPayNumber = "0812345678";
-  const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
+  const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}?size=300`;
 
-  document.getElementById("result").innerHTML = `
-    <b>ชื่อลูกค้า:</b> ${name}<br>
-    <b>จำนวนคน:</b> ${people}<br>
-    <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
-    <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
+  fetch(qrUrl)
+    .then(res => res.blob())
+    .then(blob => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
 
-    <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
-    <b><u>Custom รายบุคคล:</u></b><br>
-    ${customDetails || "- ไม่มี -"}<br>
-    <hr>
-    <b>รวมทั้งหมด: ${total} บาท</b>
+        document.getElementById("result").innerHTML = `
+          <b>ชื่อลูกค้า:</b> ${name}<br>
+          <b>จำนวนคน:</b> ${people}<br>
+          <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
+          <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
 
-    <div style="margin-top:20px; text-align:center;">
-      <b>สแกนจ่ายผ่าน PromptPay</b><br>
-      <img src="${qrUrl}" alt="QR PromptPay" style="margin-top:8px; width:200px; height:auto;">
-    </div>
-  `;
+          <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
+          <b><u>Custom รายบุคคล:</u></b><br>
+          ${customDetails || "- ไม่มี -"}<br>
+          <hr>
+          <b>รวมทั้งหมด: ${total} บาท</b>
+
+          <div style="margin-top:20px; text-align:center;">
+            <b>สแกนจ่ายผ่าน PromptPay</b><br>
+            <img src="${base64Image}" alt="QR PromptPay" style="margin-top:8px; width:200px; height:auto;">
+          </div>
+        `;
+      };
+      reader.readAsDataURL(blob);
+    });
 }
 
 function downloadImage() {

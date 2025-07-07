@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <title>ระบบคิดเงินถ่ายรูป (Custom รายบุคคล)</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-  <h2>ระบบคิดเงินถ่ายรูป</h2>
-
-  <!-- 🔹 หน้า 1 -->
+  <!-- หน้า 1 -->
   <div id="page1">
+    <h2>ระบบคิดเงินถ่ายรูป</h2>
+
     <label>ชื่อผู้จอง:
       <input type="text" id="customerName" placeholder="ระบุชื่อ...">
     </label>
 
-    <div class="form-row">
+    <div class="row">
       <label>จำนวนคน:
         <input type="number" id="peopleCount" value="1" min="1">
       </label>
-
       <label>วันที่ต้องการรับรูป:
         <input type="date" id="pickupDate">
       </label>
@@ -29,33 +27,36 @@
       <input type="text" id="contactInfo" placeholder="ระบุช่องทาง...">
     </label>
 
-    <button onclick="goToPage2()">➡️ ถัดไป</button>
+    <div class="nav-buttons">
+      <button onclick="goToPage2()">ถัดไป ➡️</button>
+    </div>
   </div>
 
-  <!-- 🔸 หน้า 2 -->
-  <div id="page2" style="display:none;">
-    <h3>รายการ <b>Custom</b> รายบุคคล:</h3>
+  <!-- หน้า 2 -->
+  <div id="page2" style="display:none">
+    <h3>Custom รายบุคคล:</h3>
     <div id="customList"></div>
 
     <button onclick="addCustom()">➕ เพิ่มรายการ Custom</button>
 
-    <div class="button-row">
+    <div class="row nav-buttons">
       <button onclick="goToPage1()">⬅️ ย้อนกลับ</button>
-      <button onclick="goToPage3()">➡️ ถัดไป</button>
+      <button onclick="goToPage3()">ถัดไป ➡️</button>
     </div>
   </div>
 
-  <!-- ✅ หน้า 3 -->
-  <div id="page3" style="display:none;">
-    <h3>สรุปราคาและสลิปชำระเงิน</h3>
+  <!-- หน้า 3 -->
+  <div id="page3" style="display:none">
     <div class="result" id="result"></div>
+    <div id="qrContainer" style="text-align:center;"></div>
 
-    <div class="button-row">
+    <div class="row nav-buttons">
       <button onclick="goToPage2()">⬅️ ย้อนกลับ</button>
-      <button onclick="downloadImage()">💾 บันทึกภาพ</button>
+      <button onclick="downloadImage()">บันทึกเป็นภาพ</button>
     </div>
   </div>
 
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
