@@ -1,3 +1,71 @@
+index.html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ระบบคิดเงินถ่ายรูป (Custom รายบุคคล)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- หน้า 1 -->
+  <div id="page1">
+    <h2>ระบบคิดเงินถ่ายรูป</h2>
+
+    <label>ชื่อผู้จอง:
+      <input type="text" id="customerName" placeholder="ระบุชื่อ...">
+    </label>
+
+    <div class="row">
+      <label>จำนวนคน:
+        <input type="number" id="peopleCount" value="1" min="1">
+      </label>
+      <label>วันที่ต้องการรับรูป:
+        <input type="date" id="pickupDate">
+      </label>
+    </div>
+
+    <label>ช่องทางติดต่อ (เบอร์โทร / Line / Email):
+      <input type="text" id="contactInfo" placeholder="ระบุช่องทาง...">
+    </label>
+
+    <div class="nav-buttons">
+      <button onclick="goToPage2()">ถัดไป ➡️</button>
+    </div>
+  </div>
+
+  <!-- หน้า 2 -->
+  <div id="page2" style="display:none">
+    <h3>Custom รายบุคคล:</h3>
+    <div id="customList"></div>
+
+    <button onclick="addCustom()">➕ เพิ่มรายการ Custom</button>
+
+    <div class="row nav-buttons">
+      <button onclick="goToPage1()">⬅️ ย้อนกลับ</button>
+      <button onclick="goToPage3()">ถัดไป ➡️</button>
+    </div>
+  </div>
+
+  <!-- หน้า 3 -->
+  <div id="page3" style="display:none">
+    <div class="result" id="result"></div>
+    <div id="qrContainer" style="text-align:center;"></div>
+
+    <div class="row nav-buttons">
+      <button onclick="goToPage2()">⬅️ ย้อนกลับ</button>
+      <button onclick="downloadImage()">บันทึกเป็นภาพ</button>
+    </div>
+  </div>
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+script.js
 let customIndex = 0;
 
 function goToPage1() {
@@ -132,4 +200,135 @@ function downloadImage() {
     link.href = canvas.toDataURL();
     link.click();
   });
+}
+
+
+
+
+stylt.css
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap');
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: linear-gradient(to bottom right, #f2f2f2, #e0f7fa);
+  max-width: 640px;
+  margin: auto;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px rgba(0,0,0,0.05);
+}
+
+h2 {
+  color: #00695c;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+h3 {
+  margin-top: 24px;
+  color: #004d40;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-row label {
+  flex: 1;
+  margin-top: 10px;
+}
+
+.custom-person {
+  background: #ffffff;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-left: 4px solid #26a69a;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.custom-options {
+  margin-top: 8px;
+  padding-left: 8px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background-color: #004d40;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.button-row button {
+  flex: 1;
+  margin-top: 0;
+}
+
+.remove-button {
+  background-color: #e53935;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.remove-button:hover {
+  background-color: #b71c1c;
+}
+
+.result {
+  background: #ffffff;
+  border: 1px dashed #999;
+  padding: 16px;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.6;
+  border-radius: 10px;
+  color: #333;
 }
