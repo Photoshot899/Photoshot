@@ -1,22 +1,5 @@
 let customIndex = 0;
 
-function goToPage1() {
-  showPage("page1");
-}
-function goToPage2() {
-  showPage("page2");
-}
-function goToPage3() {
-  calculate();
-  showPage("page3");
-}
-
-function showPage(id) {
-  ["page1", "page2", "page3"].forEach(p => {
-    document.getElementById(p).style.display = (p === id) ? "block" : "none";
-  });
-}
-
 function addCustom() {
   customIndex++;
   const div = document.createElement('div');
@@ -25,11 +8,6 @@ function addCustom() {
     <label>ชื่อคนที่ Custom:
       <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
     </label>
-
-    <label>รหัสไฟล์ภาพ:
-      <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
-    </label>
-
     <div class="custom-options">
       <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
@@ -37,7 +15,6 @@ function addCustom() {
       <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
-
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
@@ -54,20 +31,13 @@ function addCustom() {
         </select> (+100฿)
       </label>
     </div>
-
-    <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
   `;
   document.getElementById('customList').appendChild(div);
 }
 
-function removeCustom(button) {
-  const block = button.closest(".custom-person");
-  if (block) block.remove();
-}
-
 function calculate() {
   const name = document.getElementById("customerName").value || "ไม่ระบุ";
-  const people = Math.max(1, parseInt(document.getElementById("peopleCount").value) || 1);
+  const people = parseInt(document.getElementById("peopleCount").value) || 1;
   const pickupDate = document.getElementById("pickupDate")?.value || "ไม่ระบุ";
   const contactInfo = document.getElementById("contactInfo")?.value || "ไม่ระบุ";
   const basePrice = 350;
@@ -78,7 +48,6 @@ function calculate() {
 
   blocks.forEach((block, i) => {
     const cname = block.querySelector("input[name='customName']").value || `คนที่ ${i + 1}`;
-    const imageCode = block.querySelector("input[name='imageCode']").value || "-";
     const options = block.querySelectorAll(".customOption");
     const hairStyleCode = block.querySelector(".hairStyleSelect").value;
 
@@ -98,12 +67,12 @@ function calculate() {
     }
 
     customTotal += subtotal;
-    customDetails += `${cname} (ไฟล์: ${imageCode}): ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
+    customDetails += `${cname}: ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
   });
 
   const baseTotal = basePrice * people;
   const total = baseTotal + customTotal;
-  const promptPayNumber = "0812345678";
+  const promptPayNumber = "0812345678"; // ✅ เปลี่ยนเป็นเบอร์ PromptPay จริงของคุณ
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${total}`;
 
   document.getElementById("result").innerHTML = `
