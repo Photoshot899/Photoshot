@@ -3,9 +3,11 @@ let customIndex = 0;
 function goToPage1() {
   showPage("page1");
 }
+
 function goToPage2() {
   showPage("page2");
 }
+
 function goToPage3() {
   calculate();
 
@@ -13,7 +15,20 @@ function goToPage3() {
   const contact = document.getElementById("contactInfo").value || "ไม่ระบุ";
   const date = document.getElementById("pickupDate").value;
 
-  if (date) addToCalendar(name, contact, date);
+  if (date) {
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxVGnVcXKpR3JKtQFw1lQTR_3oqm5R_Z8qF64Im6D5h0LwstWSXgJOXffwnEbHgsn_zfQ/exec";
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      body: new URLSearchParams({
+        name: name,
+        contact: contact,
+        date: date
+      })
+    })
+    .then(res => res.text())
+    .then(msg => console.log("📅 Google Calendar:", msg))
+    .catch(err => console.error("❌ Calendar Error:", err));
+  }
 
   showPage("page3");
 }
@@ -32,11 +47,9 @@ function addCustom() {
     <label>ชื่อคนที่ Custom:
       <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
     </label>
-
     <label>รหัสไฟล์ภาพ:
       <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
     </label>
-
     <div class="custom-options">
       <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
@@ -44,7 +57,6 @@ function addCustom() {
       <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
       <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
-
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
@@ -61,7 +73,6 @@ function addCustom() {
         </select> (+100฿)
       </label>
     </div>
-
     <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
   `;
   document.getElementById('customList').appendChild(div);
@@ -118,13 +129,11 @@ function calculate() {
     <b>จำนวนคน:</b> ${people}<br>
     <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
     <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
-
     <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
     <b><u>Custom รายบุคคล:</u></b><br>
     ${customDetails || "- ไม่มี -"}<br>
     <hr>
     <b>รวมทั้งหมด: ${total} บาท</b>
-
     <div style="margin-top:20px; text-align:center;">
       <b>สแกนจ่ายผ่าน PromptPay</b><br>
       <img src="${qrUrl}" alt="QR PromptPay" style="margin-top:8px; width:200px; height:auto;">
@@ -140,43 +149,3 @@ function downloadImage() {
     link.click();
   });
 }
-
-// =====================
-// GOOGLE CALENDAR
-// =====================
-const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
-const API_KEY = 'YOUR_API_KEY';
-const SCOPES = "https://www.googleapis.com/auth/calendar.events";
-
-function initCalendarAPI() {
-  gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-    scope: SCOPES,
-  }).then(() => {
-    return gapi.auth2.getAuthInstance().signIn();
-  }).catch((err) => {
-    alert("เชื่อมต่อ Google Calendar ไม่สำเร็จ: " + err.details);
-  });
-}
-
-function addToCalendar(name, contact, date) {
-  const event = {
-    summary: `📸 นัดรับรูป: ${name}`,
-    description: `ช่องทางติดต่อ: ${contact}`,
-    start: { date: date },
-    end: { date: date },
-  };
-
-  gapi.client.calendar.events.insert({
-    calendarId: 'primary',
-    resource: event,
-  }).then(response => {
-    alert("✅ เพิ่มนัดรับรูปลง Google Calendar เรียบร้อย");
-  }).catch(error => {
-    alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + error.message);
-  });
-}
-
-gapi.load('client:auth2', initCalendarAPI);
