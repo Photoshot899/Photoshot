@@ -8,6 +8,13 @@ function goToPage2() {
 }
 function goToPage3() {
   calculate();
+
+  const name = document.getElementById("customerName").value || "ไม่ระบุ";
+  const contact = document.getElementById("contactInfo").value || "ไม่ระบุ";
+  const date = document.getElementById("pickupDate").value;
+
+  if (date) addToCalendar(name, contact, date);
+
   showPage("page3");
 }
 
@@ -133,3 +140,43 @@ function downloadImage() {
     link.click();
   });
 }
+
+// =====================
+// GOOGLE CALENDAR
+// =====================
+const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+const API_KEY = 'YOUR_API_KEY';
+const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
+function initCalendarAPI() {
+  gapi.client.init({
+    apiKey: API_KEY,
+    clientId: CLIENT_ID,
+    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+    scope: SCOPES,
+  }).then(() => {
+    return gapi.auth2.getAuthInstance().signIn();
+  }).catch((err) => {
+    alert("เชื่อมต่อ Google Calendar ไม่สำเร็จ: " + err.details);
+  });
+}
+
+function addToCalendar(name, contact, date) {
+  const event = {
+    summary: `📸 นัดรับรูป: ${name}`,
+    description: `ช่องทางติดต่อ: ${contact}`,
+    start: { date: date },
+    end: { date: date },
+  };
+
+  gapi.client.calendar.events.insert({
+    calendarId: 'primary',
+    resource: event,
+  }).then(response => {
+    alert("✅ เพิ่มนัดรับรูปลง Google Calendar เรียบร้อย");
+  }).catch(error => {
+    alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + error.message);
+  });
+}
+
+gapi.load('client:auth2', initCalendarAPI);

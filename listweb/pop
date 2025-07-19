@@ -65,7 +65,8 @@ index.html
 
 
 
-script.js
+
+scrip.js
 let customIndex = 0;
 
 function goToPage1() {
@@ -205,7 +206,8 @@ function downloadImage() {
 
 
 
-stylt.css
+
+style.css
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap');
 
 body {
