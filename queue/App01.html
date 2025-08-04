@@ -3,55 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <title>จองคิวถ่ายภาพ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="App01.css">
 </head>
-
 <body>
   <div class="container">
 
-    <!-- โลโก้และหัวเรื่อง -->
+    <!-- โลโก้ + หัวเรื่อง -->
     <div class="logo">
-      <img src="/Users/apirak/เว็บร้านถ่ายภาพ/queue/image/logo.png" alt="logo icon">
-      <div class="logo-text">จองคิว<br>ถ่ายภาพ</div>
+      <img src="image/logo1.png" alt="logo icon">
+      <div class="logo-text">
+        <strong>จองคิว</strong><br><span>ถ่ายภาพ</span>
+      </div>
     </div>
 
-    <!-- ฟอร์มจอง -->
+    <!-- ฟอร์ม -->
     <form id="bookingForm">
-      <input type="text" name="fullname" placeholder="ชื่อเล่น/สาขา" required>
-      <input type="tel" name="phone" placeholder="เบอร์โทร ติดต่อ" required>
-      <input type="number" name="people" placeholder="จำนวนคน" min="1" required>
+      <input type="text" name="fullname" placeholder="ชื่อเล่น/สาขา" required />
+      <input type="tel" name="phone" placeholder="เบอร์โทร ติดต่อ" required />
+      <input type="number" name="people" placeholder="จำนวนคน" min="1" required />
 
-      <!-- วันที่ เวลาเข้า เวลาออก -->
       <div class="row">
-        <div class="column">
-          <label for="date">วันที่</label>
-          <input type="date" id="date" name="date" required>
-        </div>
-        <div class="column">
-          <label for="timeStart">เวลาเริ่ม</label>
-          <input type="time" id="timeStart" name="timeStart" required>
-        </div>
-        <div class="column">
-          <label for="timeEnd">เวลาสิ้นสุด</label>
-          <input type="time" id="timeEnd" name="timeEnd" required>
-        </div>
+        <input type="date" name="date" required />
+        <input type="time" name="timeStart" required />
+        <input type="time" name="timeEnd" required />
       </div>
 
-      <!-- ปุ่มส่ง -->
       <button type="submit">ส่ง</button>
     </form>
 
-    <!-- ข้อความแจ้งเตือน -->
     <div id="message" class="message"></div>
   </div>
 
   <script>
-    // จำกัดวันที่ให้อยู่ในอนาคตเท่านั้น
     const today = new Date().toISOString().split("T")[0];
-    document.getElementById("date").setAttribute("min", today);
+    document.querySelector('input[type="date"]').setAttribute("min", today);
 
-    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const form = e.target;
@@ -60,10 +48,7 @@
       const originalText = submitBtn.innerText;
 
       const data = new FormData(form);
-      const params = new URLSearchParams();
-      for (const [key, value] of data.entries()) {
-        params.append(key, value);
-      }
+      const params = new URLSearchParams(data);
 
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
@@ -92,8 +77,8 @@
       }
 
       submitBtn.classList.remove('loading');
-      setTimeout(() => submitBtn.disabled = false, 1500);
       submitBtn.innerText = originalText;
+      setTimeout(() => submitBtn.disabled = false, 1500);
     });
   </script>
 </body>
