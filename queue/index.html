@@ -24,9 +24,18 @@
       <input type="number" name="people" placeholder="จำนวนคน" min="1" required />
 
       <div class="row">
-        <input type="date" name="date" required />
-        <input type="time" name="timeStart" required />
-        <input type="time" name="timeEnd" required />
+        <div class="field">
+          <label>วันที่</label>
+          <input type="date" name="date" required />
+        </div>
+        <div class="field">
+          <label>เวลาเริ่ม</label>
+          <input type="time" name="timeStart" required />
+        </div>
+        <div class="field">
+          <label>เวลาสิ้นสุด</label>
+          <input type="time" name="timeEnd" required />
+        </div>
       </div>
 
       <button type="submit">ส่ง</button>
