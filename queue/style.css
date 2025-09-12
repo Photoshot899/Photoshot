@@ -84,7 +84,7 @@ select { appearance: none; cursor: pointer; }
 /* row ชื่อ+คณะ */
 .name-faculty-row { display: flex; gap: 12px; }
 .name-faculty-row input[name="fullname"] { flex: 7; }
-.name-faculty-row select[name="faculty"] { flex: 4; }
+.name-faculty-row select[name="faculty"] { flex: 7; }
 
 /* ปุ่ม */
 button {
