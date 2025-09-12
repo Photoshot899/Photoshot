@@ -1,30 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap');
 
 body {
-  font-family: 'Sarabun', sans-serif;
-  background: linear-gradient(to bottom right, #f2f2f2, #e0f7fa);
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(135deg, #fec6fd, #fdd6e0);
   max-width: 640px;
   margin: auto;
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 0 16px rgba(0,0,0,0.05);
+  box-shadow: 0 0 16px rgba(127, 101, 199, 0.15);
 }
 
 h2 {
-  color: #00695c;
+  color: #3f2b96; /* ม่วงเข้ม */
   text-align: center;
   margin-bottom: 16px;
 }
 
 h3 {
   margin-top: 24px;
-  color: #004d40;
+  color: #5c6bc0; /* ม่วงฟ้า */
 }
 
 label {
   font-weight: 600;
   display: block;
   margin-top: 10px;
+  color: #2e2e3f;
 }
 
 input[type="text"],
@@ -32,14 +33,22 @@ input[type="number"],
 input[type="date"],
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px 14px;
   margin-top: 4px;
   margin-bottom: 12px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid rgba(111,111,143,0.3);
+  border-radius: 12px;
+  background: #f9f7ff;
   box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #9f7cff;
+  box-shadow: 0 0 8px rgba(159,124,255,0.2);
+  outline: none;
 }
 
 .form-row {
@@ -57,9 +66,9 @@ select {
 .custom-person {
   background: #ffffff;
   padding: 14px;
-  border: 1px solid #ddd;
-  border-left: 4px solid #26a69a;
-  border-radius: 10px;
+  border: 1px solid rgba(159,124,255,0.25);
+  border-left: 4px solid #9f7cff;
+  border-radius: 12px;
   margin-bottom: 12px;
 }
 
@@ -74,16 +83,17 @@ button {
   margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
-  background-color: #00796b;
+  background-color: #3f51b5; /* น้ำเงินม่วง */
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   transition: 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
 button:hover {
-  background-color: #004d40;
+  background-color: #5c6bc0;
 }
 
 .button-row {
@@ -104,7 +114,7 @@ button:hover {
   padding: 10px;
   margin-top: 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
   transition: background-color 0.2s ease;
@@ -116,11 +126,11 @@ button:hover {
 
 .result {
   background: #ffffff;
-  border: 1px dashed #999;
+  border: 1px dashed rgba(159,124,255,0.6);
   padding: 16px;
   margin-top: 24px;
   font-size: 16px;
   line-height: 1.6;
-  border-radius: 10px;
+  border-radius: 12px;
   color: #333;
 }

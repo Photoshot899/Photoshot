@@ -51,12 +51,9 @@ function addCustom() {
       <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
     </label>
     <div class="custom-options">
-      <label><input type="checkbox" class="customOption" data-label="เปลี่ยนสีผม"> เปลี่ยนสีผม (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="รีทัชสิว / จุดด่างดำ"> รีทัชสิว / จุดด่างดำ (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="ปรับผิวเนียน"> ปรับผิวเนียน (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="ปรับหน้าเรียว / ลดแก้ม"> ปรับหน้าเรียว / ลดแก้ม (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="รีทัชปาก / ฟันขาว"> รีทัชปาก / ฟันขาว (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="ปรับคิ้ว / เติมคิ้ว"> ปรับคิ้ว / เติมคิ้ว (+100฿)</label><br><br>
+      <label><input type="checkbox" class="customOption" data-label="ลดเฉดสีผม"> ลดเฉดสีผม (+100฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 25%"> บีบหน้า - ลดแก้ม 25% (0฿)</label><br>
+      <label><input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 50%"> บีบหน้า - ลดแก้ม 50% (50฿)</label><br>
       <label>เลือกทรงผม:
         <select class="hairStyleSelect">
           <option value="">- ไม่เลือก -</option>
