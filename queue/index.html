@@ -46,7 +46,16 @@
       </div>
 
       <input type="tel" name="phone" placeholder="เบอร์โทร ติดต่อ" required />
-      <input type="number" name="people" placeholder="จำนวนคน" min="1" required />
+
+      <!-- แถวจำนวนคน + เงินมัดจำ -->
+      <div class="row">
+        <div class="field">
+          <input type="number" name="people" placeholder="จำนวนคน" min="1" required />
+        </div>
+        <div class="field">
+          <input type="number" name="deposit" placeholder="เงินมัดจำ (บาท)" min="0" required />
+        </div>
+      </div>
 
       <!-- แถววันที่และเวลา -->
       <div class="row">
