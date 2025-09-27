@@ -1,6 +1,6 @@
 let customIndex = 0;
 let bookingData = [];
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz3Pr6qy-I7rWfE6_flPydvbiZ0VrWWJuche_rf702oBudhlhvIN71uxhMyewWWEsbeZw/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby56N6IkusCupHjqzsYI94G0_4o8pAfb_DlgRTClgqEaCBsQD7T5jerheK24ul4E97MGQ/exec";
 
 // โหลดข้อมูลผู้จองจาก Google Sheets
 async function loadBookingData() {
