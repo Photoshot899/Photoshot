@@ -278,7 +278,7 @@ function calculate() {
   //const baseTotal = basePrice * people;
   const grandTotal = basePrice + customTotal;
   const remainingAmount = grandTotal - depositAmount;
-  const promptPayNumber = "0812345678";
+  const promptPayNumber = "0835050998";
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${remainingAmount}`;
 
   document.getElementById("result").innerHTML = `
