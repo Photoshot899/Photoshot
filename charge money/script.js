@@ -171,34 +171,52 @@ function addCustom() {
   const div = document.createElement('div');
   div.className = 'custom-person';
   div.innerHTML = `
-    <label>ชื่อคนที่ Custom:
-      <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
-    </label>
-    <label>รหัสไฟล์ภาพ:
-      <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
-    </label>
-    <div class="custom-options">
-      <label><input type="checkbox" class="customOption" data-label="ลดเฉดสีผม"> ลดเฉดสีผม (+100฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 25%"> บีบหน้า - ลดแก้ม 25% (0฿)</label><br>
-      <label><input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 50%"> บีบหน้า - ลดแก้ม 50% (50฿)</label><br>
-      <label>เลือกทรงผม:
-        <select class="hairStyleSelect">
-          <option value="">- ไม่เลือก -</option>
-          <option value="HS01">HS01</option>
-          <option value="HS02">HS02</option>
-          <option value="HS03">HS03</option>
-          <option value="HS04">HS04</option>
-          <option value="HS05">HS05</option>
-          <option value="HS06">HS06</option>
-          <option value="HS07">HS07</option>
-          <option value="HS08">HS08</option>
-          <option value="HS09">HS09</option>
-          <option value="HS10">HS10</option>
-        </select> (+100฿)
-      </label>
+  <label>ชื่อคนที่ Custom:
+    <input type="text" name="customName" placeholder="ชื่อคนที่ ${customIndex}">
+  </label>
+
+  <label>รหัสไฟล์ภาพ:
+    <input type="text" name="imageCode" placeholder="เช่น IMG_1234">
+  </label>
+
+  <div class="custom-options">
+
+    <div class="custom-option">
+      <input type="checkbox" class="customOption" data-label="ลดเฉดสีผม" id="c1-${customIndex}">
+      <label for="c1-${customIndex}">ลดเฉดสีผม (+100฿)</label>
     </div>
-    <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
-  `;
+
+    <div class="custom-option">
+      <input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 25%" id="c2-${customIndex}">
+      <label for="c2-${customIndex}">บีบหน้า - ลดแก้ม 25% (0฿)</label>
+    </div>
+
+    <div class="custom-option">
+      <input type="checkbox" class="customOption" data-label="บีบหน้า - ลดแก้ม 50%" id="c3-${customIndex}">
+      <label for="c3-${customIndex}">บีบหน้า - ลดแก้ม 50% (50฿)</label>
+    </div>
+
+    <label>เลือกทรงผม:
+      <select class="hairStyleSelect">
+        <option value="">- ไม่เลือก -</option>
+        <option value="HS01">HS01</option>
+        <option value="HS02">HS02</option>
+        <option value="HS03">HS03</option>
+        <option value="HS04">HS04</option>
+        <option value="HS05">HS05</option>
+        <option value="HS06">HS06</option>
+        <option value="HS07">HS07</option>
+        <option value="HS08">HS08</option>
+        <option value="HS09">HS09</option>
+        <option value="HS10">HS10</option>
+      </select> (+100฿)
+    </label>
+
+  </div>
+
+  <button class="remove-button" onclick="removeCustom(this)">❌ ลบรายการนี้</button>
+`;
+
   document.getElementById('customList').appendChild(div);
 }
 
@@ -224,7 +242,7 @@ function calculate() {
   const pickupDate = document.getElementById("pickupDate")?.value || "ไม่ระบุ";
   const contactInfo = document.getElementById("contactInfo")?.value || "ไม่ระบุ";
   const depositAmount = parseInt(document.getElementById("depositAmount")?.value) || 0;
-  const basePrice = 350;
+  const basePrice = parseInt(document.getElementById("Totalprice")?.value) || 0;
 
   let customTotal = 0;
   let customDetails = "";
@@ -257,8 +275,8 @@ function calculate() {
     customDetails += `${cname} (ไฟล์: ${imageCode}): ${desc.join(", ") || "ไม่มี"} (+${subtotal}฿)<br>`;
   });
 
-  const baseTotal = basePrice * people;
-  const grandTotal = baseTotal + customTotal;
+  //const baseTotal = basePrice * people;
+  const grandTotal = basePrice + customTotal;
   const remainingAmount = grandTotal - depositAmount;
   const promptPayNumber = "0812345678";
   const qrUrl = `https://promptpay.io/${promptPayNumber}/${remainingAmount}`;
@@ -268,12 +286,11 @@ function calculate() {
     <b>จำนวนคน:</b> ${people}<br>
     <b>วันที่ต้องการรับรูป:</b> ${pickupDate}<br>
     <b>ช่องทางติดต่อ:</b> ${contactInfo}<br><br>
-    <b>ถ่ายภาพพื้นฐาน:</b> ${basePrice} × ${people} = ${baseTotal}฿<br><br>
     <b><u>Custom รายบุคคล:</u></b><br>
     ${customDetails || "- ไม่มี -"}<br>
-    <b>เงินมัดจำ:</b> ${depositAmount}฿<br>
     <hr>
     <b>รวมทั้งหมด: ${grandTotal} บาท</b><br>
+    <b>เงินมัดจำ:</b> ${depositAmount}฿<br>
     <b>คงเหลือที่ต้องจ่าย: ${remainingAmount} บาท</b>
     <div style="margin-top:20px; text-align:center;">
       <b>สแกนจ่ายผ่าน PromptPay (จำนวนที่คงเหลือ)</b><br>

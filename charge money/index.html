@@ -29,8 +29,15 @@
       </label>
     </div>
 
-    <label>เงินมัดจำ (บาท):
-      <input type="number" id="depositAmount" value="" min="0">
+    <div class="row">
+      <label>ราคาทั้งหมด (บาท):
+        <input type="number" id="Totalprice" value="" min="0">
+      </label>
+      <label>เงินมัดจำ (บาท):
+        <input type="number" id="depositAmount" value="" min="0">
+      </label>
+    </div>
+    
     </label>
 
     <label>ช่องทางติดต่อ (เบอร์โทร):
@@ -64,9 +71,16 @@
       <button onclick="goToPage2()">⬅️ ย้อนกลับ</button>
       <button onclick="downloadImage()">บันทึกเป็นภาพ</button>
     </div>
+    <div class="slip">
+      <h4>ส่งสลิปการโอนเงิน:</h4>
+      <img src="image/QR code ส่งสลิป .png" alt="logo icon">
+    </div>
   </div>
 
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
-</body>
+
+
+  
+    
 </html>
